@@ -1,0 +1,2242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Art Gallery | Digital Art Exhibition</title>
+
+<style>
+/* GENERAL */
+body {
+    font-family: Arial, sans-serif;
+    background: #f7f1e8;
+    color: #443b42;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* STICKY HEADER */
+header {
+    background: white;
+    text-align: center;
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    color: #76518f;
+    margin: 0;
+}
+
+nav a {
+    color: #443b42;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #76518f;
+    text-decoration: underline;
+}
+
+/* DROPDOWN */
+.dropdown {
+    display: inline-block;
+    position: relative;
+}
+
+.dropdown button {
+    background: none;
+    color: #443b42;
+    border: none;
+    padding: 0;
+    margin: 0 10px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.dropdown button:hover {
+    background: none;
+    color: #76518f;
+    text-decoration: underline;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    background: white;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    text-align: left;
+    z-index: 101;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 8px 12px;
+    margin: 0;
+}
+
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content {
+    display: block;
+}
+
+/* AUDIO */
+.music {
+    background: white;
+    text-align: center;
+    padding: 10px;
+}
+
+/* ANNOUNCEMENT */
+.announcement {
+    background: #29243b;
+    color: white;
+    padding: 12px 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.announcement-track {
+    display: inline-block;
+    min-width: 100%;
+    animation: slideText 14s linear infinite;
+}
+
+.announcement-track span {
+    display: inline-block;
+    padding-left: 100%;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+@keyframes slideText {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+/* ANNOUNCEMENT CONTROLS */
+.animation-controls {
+    background: white;
+    text-align: center;
+    padding: 10px;
+}
+
+.animation-controls button {
+    background: #76518f;
+    color: white;
+    border: none;
+    padding: 9px 16px;
+    margin: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.animation-controls button:hover {
+    background: #50345f;
+}
+
+/* HERO BANNER */
+.hero {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+    background: #29243b;
+}
+
+.banner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.78;
+    animation: bannerZoom 12s ease-in-out infinite alternate;
+}
+
+@keyframes bannerZoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.12); }
+}
+
+.hero-content {
+    position: absolute;
+    left: 7%;
+    bottom: 28px;
+    z-index: 2;
+    color: white;
+    max-width: 560px;
+    text-shadow: 0 2px 5px black;
+}
+
+.hero-content h2 {
+    font-size: clamp(28px, 4vw, 46px);
+    line-height: 1.1;
+    margin: 0 0 8px;
+}
+
+/* PULSING BADGE */
+.live-tag {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    z-index: 3;
+    background: #76518f;
+    color: white;
+    padding: 7px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    animation: pulseBadge 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseBadge {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(181,18,43,0);
+    }
+    50% {
+        transform: scale(1.12);
+        box-shadow: 0 0 15px rgba(181,18,43,0.8);
+    }
+}
+
+/* PAGE LAYOUT */
+.page-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    width: 94%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 210px;
+    flex-shrink: 0;
+    background: white;
+    border-left: 5px solid #76518f;
+    border-radius: 8px;
+    padding: 15px;
+    box-sizing: border-box;
+    position: sticky;
+    top: 125px;
+}
+
+.sidebar h2 {
+    color: #76518f;
+    margin-top: 0;
+    font-size: 20px;
+}
+
+.sidebar a {
+    display: block;
+    color: #443b42;
+    padding: 7px 0;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    color: #76518f;
+}
+
+.main-content {
+    min-width: 0;
+    flex: 1;
+}
+
+/* MEDIA SECTION */
+.media {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+.section-heading {
+    border-left: 5px solid #76518f;
+    padding-left: 12px;
+    margin-bottom: 15px;
+}
+
+/* STATISTICS */
+.feature-strip {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 22px 0;
+}
+
+.feature {
+    flex: 1 1 150px;
+    background: white;
+    padding: 15px;
+    border-radius: 7px;
+    border-bottom: 3px solid #c79b55;
+}
+
+.feature strong {
+    display: block;
+    font-size: 22px;
+    color: #76518f;
+}
+
+/* MEDIA BOXES */
+.box {
+    width: 48%;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 1% 18px 0;
+    padding: 12px;
+    box-sizing: border-box;
+    background: white;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+}
+
+.box h3 {
+    margin: 0 0 10px;
+}
+
+.box iframe,
+.box video {
+    width: 100%;
+    height: 250px;
+    border: 0;
+    display: block;
+    border-radius: 4px;
+}
+
+/* GALLERY */
+.gallery-section {
+    width: 100%;
+    margin: 28px auto;
+}
+
+.gallery-intro {
+    color: #746b70;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.gallery-card {
+    min-width: 0;
+    overflow: hidden;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.gallery-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 22px rgba(0,0,0,0.18);
+}
+
+.gallery-open {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: #29243b;
+    overflow: hidden;
+}
+
+.gallery-open img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.gallery-open:hover img,
+.gallery-open:focus-visible img {
+    transform: scale(1.08);
+}
+
+.gallery-caption {
+    padding: 12px 14px;
+    margin: 0;
+    font-weight: bold;
+}
+
+/* LIGHTBOX */
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0,0,0,0.92);
+}
+
+.lightbox.open {
+    display: flex;
+}
+
+.lightbox-content {
+    max-width: 1000px;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+.lightbox-image {
+    display: block;
+    max-width: 100%;
+    max-height: 75vh;
+    margin: 0 auto;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.lightbox-caption {
+    margin: 12px 0 0;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 14px;
+    right: 22px;
+    padding: 5px 12px;
+    background: #76518f;
+    color: white;
+    font-size: 28px;
+    line-height: 1.2;
+}
+
+/* EXHIBITION UPDATES */
+.race-card {
+    position: relative;
+    overflow: hidden;
+    background: white;
+    border-radius: 8px;
+    padding: 18px;
+    margin: 18px 0;
+    border-left: 5px solid #76518f;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+}
+
+.race-card h3 {
+    margin-top: 0;
+    padding-right: 90px;
+}
+
+.race-card p {
+    margin-bottom: 0;
+}
+
+.card-status {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #eee4f2;
+    color: #684477;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 5px 8px;
+    border-radius: 4px;
+}
+
+/* EXHIBITION SCHEDULE */
+.schedule {
+    position: relative;
+    margin: 20px 0;
+    padding: 5px 0 5px 28px;
+    border-left: 3px solid #76518f;
+}
+
+.schedule-item {
+    position: relative;
+    background: white;
+    margin: 0 0 14px;
+    padding: 12px 15px;
+    border-radius: 6px;
+    box-shadow: 0 2px 7px rgba(0,0,0,0.06);
+}
+
+.schedule-item::before {
+    content: "";
+    position: absolute;
+    left: -37px;
+    top: 17px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #76518f;
+    border: 3px solid #f7f1e8;
+}
+
+.schedule-item strong {
+    color: #76518f;
+}
+
+/* REGISTRATION FORM */
+.form-section {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    background: white;
+    padding: 18px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.form-section h2 {
+    color: #76518f;
+}
+
+.form-section input,
+.form-section select,
+.form-section textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background: #76518f;
+    color: white;
+    border: 0;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background: #50345f;
+}
+
+/* ART SUPPLY ORDER */
+.supply-order-section {
+    max-width: 760px;
+    border-top: 4px solid #c79b55;
+}
+
+.supply-order-intro {
+    color: #746b70;
+}
+
+.supply-products {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.supply-option {
+    min-width: 0;
+    padding: 14px;
+    background: #fbf7f1;
+    border-left: 4px solid #76518f;
+    border-radius: 6px;
+}
+
+.supply-option h3 {
+    margin: 0 0 5px;
+    color: #29243b;
+}
+
+.supply-option p {
+    margin: 0 0 8px;
+    color: #746b70;
+}
+
+.supply-option label {
+    display: block;
+    color: #76518f;
+    font-weight: bold;
+}
+
+.supply-option input {
+    width: 100%;
+    padding: 9px;
+    margin-top: 6px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font: inherit;
+}
+
+.supply-option input:focus {
+    outline: 2px solid #c79b55;
+    outline-offset: 2px;
+}
+
+.supply-bill {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    padding: 12px 14px;
+    background: #29243b;
+    border-radius: 5px;
+    color: white;
+}
+
+.supply-bill output {
+    color: #f1d6a8;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.supply-order-feedback {
+    min-height: 1.5em;
+    margin: 10px 0 0;
+    color: #76518f;
+}
+
+.supply-order-feedback.success {
+    color: #18723b;
+}
+
+/* ENDPOINT DATA MANAGEMENT */
+.endpoint-section {
+    max-width: 900px;
+    border-top: 4px solid #c79b55;
+}
+
+.endpoint-intro,
+.endpoint-demo-note {
+    color: #746b70;
+}
+
+.endpoint-demo-note {
+    padding: 10px 12px;
+    background: #fbf7f1;
+    border-left: 4px solid #c79b55;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.endpoint-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 18px 0 10px;
+}
+
+.endpoint-toolbar h3 {
+    margin: 0;
+    color: #29243b;
+}
+
+.endpoint-status {
+    min-height: 1.5em;
+    margin: 10px 0;
+    color: #76518f;
+}
+
+.endpoint-status.success {
+    color: #18723b;
+}
+
+.endpoint-update-list {
+    display: grid;
+    gap: 12px;
+}
+
+.endpoint-update-card {
+    padding: 14px;
+    background: #fbf7f1;
+    border-left: 4px solid #76518f;
+    border-radius: 6px;
+}
+
+.endpoint-update-card h4 {
+    margin: 0 0 7px;
+    color: #29243b;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <h1>ART GALLERY</h1>
+    <p>DISCOVER ART. EXPERIENCE CREATIVITY.</p>
+
+    <nav>
+        <a href="#media">Media</a>
+        <a href="#gallery">Gallery</a>
+
+        <div class="dropdown">
+            <button type="button">Art Updates ▼</button>
+
+            <div class="dropdown-content">
+                <a href="#race-info">Exhibition Updates</a>
+                <a href="#application">Join Us</a>
+                <a href="#art-supply-order">Art Gear Order</a>
+                <a href="#endpoint-management">Exhibition Data</a>
+                <a href="#task-manager">Task Manager</a>
+                <a href="#interactive-quiz">Quiz</a>
+                <a href="#media">Media Elements</a>
+                <a href="#gallery">Image Gallery</a>
+                <a href="#schedule">Exhibition Schedule</a>
+            </div>
+        </div>
+
+        <a href="#application">Register</a>
+    </nav>
+</header>
+
+<!-- AUDIO -->
+<div class="music">
+    <p>Play Art Music:</p>
+
+    <audio controls>
+        <source src="East_Duo_-_Chubina_(mp3.pm).mp3" type="audio/mp3">
+        Your browser does not support audio.
+    </audio>
+</div>
+
+<!-- ANIMATED ANNOUNCEMENT -->
+<div class="announcement">
+    <div class="announcement-track" id="announcement-track">
+        <span>
+            WELCOME TO THE ART GALLERY!
+            &nbsp;&nbsp;&nbsp; EXPLORE ART!
+            &nbsp;&nbsp;&nbsp; SUPPORT ARTISTS!
+            &nbsp;&nbsp;&nbsp; ONE SPACE. MANY STORIES!
+        </span>
+    </div>
+</div>
+
+<!-- ANIMATION CONTROLS -->
+<div class="animation-controls">
+    <button type="button" id="pause-btn">Pause Animation</button>
+    <button type="button" id="play-btn">Play Animation</button>
+    <button type="button" id="restart-btn">Restart Animation</button>
+</div>
+
+<!-- HERO BANNER -->
+<section class="hero">
+    <img class="banner"
+         src="art.jpeg"
+         alt="Art gallery exhibition">
+
+    <span class="live-tag">FEATURED</span>
+
+    <div class="hero-content">
+        <h2>EXPLORE.<br>IMAGINE.</h2>
+        <p>A space to discover creativity, colour and imagination.</p>
+    </div>
+</section>
+
+<!-- MAIN PAGE LAYOUT -->
+<div class="page-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h2>Art Gallery Hub</h2>
+
+        <p>
+            Welcome to our creative space.
+            Discover beautiful artwork and talented artists.
+        </p>
+
+        <a href="#media">Media Elements</a>
+        <a href="#gallery">Image Gallery</a>
+        <a href="#race-info">Exhibition Updates</a>
+        <a href="#schedule">Exhibition Schedule</a>
+        <a href="#application">Join the Community</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- MEDIA SECTION -->
+        <section class="media" id="media">
+
+            <h2 class="section-heading">Inside the Art Gallery</h2>
+
+            <!-- STATISTICS -->
+            <div class="feature-strip">
+
+                <div class="feature">
+                    <strong>12</strong>
+                    <span>Featured Artists</span>
+                </div>
+
+                <div class="feature">
+                    <strong>8</strong>
+                    <span>Art Categories</span>
+                </div>
+
+                <div class="feature">
+                    <strong>120</strong>
+                    <span>Artworks</span>
+                </div>
+
+            </div>
+
+            <!-- PDF -->
+            <div class="box">
+                <span class="media-tag">GUIDE</span>
+
+                <h3>Art Guide</h3>
+
+                <iframe src="art1.pdf"
+                        title="Art Guide PDF">
+                </iframe>
+            </div>
+
+            <!-- YOUTUBE VIDEO -->
+            <div class="box">
+                <span class="media-tag">VIDEO</span>
+
+                <h3>Art Highlights</h3>
+
+                <iframe
+                    src="https://www.youtube.com/embed/D52YCwKeu6s"
+                    title="Art Highlights Video"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <!-- LOCAL VIDEO -->
+            <div class="box">
+                <span class="media-tag">SHOWCASE</span>
+
+                <h3>Artist Showcase</h3>
+
+                <video controls>
+                    <source src="video.mp4" type="video/mp4">
+                    Your browser does not support video.
+                </video>
+            </div>
+
+            <!-- GOOGLE MAPS -->
+            <div class="box">
+                <span class="media-tag">LOCATION</span>
+
+                <h3>National Gallery of Modern Art</h3>
+
+                <iframe
+                    src="https://www.google.com/maps?q=National+Gallery+of+Modern+Art+Bengaluru&output=embed"
+                    title="Art Gallery Location"
+                    loading="lazy">
+                </iframe>
+            </div>
+
+        </section>
+
+        <!-- IMAGE GALLERY -->
+        <section class="gallery-section" id="gallery">
+
+            <h2 class="section-heading">
+                Featured Art Gallery
+            </h2>
+
+            <p class="gallery-intro">
+                Explore beautiful artworks from different styles
+                and creative movements. Select an image to view it larger.
+            </p>
+
+            <div class="gallery-grid">
+
+                <article class="gallery-card">
+                    <button class="gallery-open" type="button"
+                        data-full="img1.png"
+                        data-caption="Classical Artwork">
+
+                        <img
+                            src="img1.png"
+                            alt="Classical artwork"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+                    </button>
+
+                    <p class="gallery-caption">
+                        Classical Artwork
+                    </p>
+                </article>
+
+                <article class="gallery-card">
+                    <button class="gallery-open" type="button"
+                        data-full="img2.png"
+                        data-caption="Modern Art">
+
+                        <img
+                            src="img2.png"
+                            alt="Modern artwork"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+                    </button>
+
+                    <p class="gallery-caption">
+                        Modern Art
+                    </p>
+                </article>
+
+                <article class="gallery-card">
+                    <button class="gallery-open" type="button"
+                        data-full="img3.png"
+                        data-caption="Creative Expressions">
+
+                        <img
+                            src="img3.png"
+                            alt="Creative artwork"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+                    </button>
+
+                    <p class="gallery-caption">
+                        Creative Expressions
+                    </p>
+                </article>
+
+                <article class="gallery-card">
+                    <button class="gallery-open" type="button"
+                        data-full="img4.png"
+                        data-caption="Abstract Art">
+
+                        <img
+                            src="img4.png"
+                            alt="Abstract artwork"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+                    </button>
+
+                    <p class="gallery-caption">
+                        Abstract Art
+                    </p>
+                </article>
+
+                <article class="gallery-card">
+                    <button class="gallery-open" type="button"
+                        data-full="img5.png"
+                        data-caption="Traditional Art">
+
+                        <img
+                            src="img5.png"
+                            alt="Traditional artwork"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+                    </button>
+
+                    <p class="gallery-caption">
+                        Traditional Art
+                    </p>
+                </article>
+
+                <article class="gallery-card">
+                    <button class="gallery-open" type="button"
+                        data-full="img6.png"
+                        data-caption="Artistic Imagination">
+
+                        <img
+                            src="img6.png"
+                            alt="Artistic imagination"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+                    </button>
+
+                    <p class="gallery-caption">
+                        Artistic Imagination
+                    </p>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- LIGHTBOX -->
+        <div class="lightbox"
+             id="lightbox"
+             role="dialog"
+             aria-modal="true"
+             aria-label="Expanded gallery image"
+             aria-hidden="true">
+
+            <button class="lightbox-close"
+                    id="lightbox-close"
+                    type="button"
+                    aria-label="Close image viewer">
+                &times;
+            </button>
+
+            <div class="lightbox-content">
+
+                <img class="lightbox-image"
+                     id="lightbox-image"
+                     src=""
+                     alt="">
+
+                <p class="lightbox-caption"
+                   id="lightbox-caption">
+                </p>
+
+            </div>
+        </div>
+
+        <!-- EXHIBITION UPDATES -->
+        <section id="race-info">
+
+            <h2 class="section-heading">
+                Art Exhibition Updates
+            </h2>
+
+            <article class="race-card">
+                <span class="card-status">FEATURED</span>
+
+                <h3>Featured Artist Exhibition</h3>
+
+                <p>
+                    Discover an exciting collection of paintings,
+                    sculptures and creative artwork from talented artists.
+                </p>
+            </article>
+
+            <article class="race-card">
+                <span class="card-status">UPCOMING</span>
+
+                <h3>Modern Art Showcase</h3>
+
+                <p>
+                    Explore modern artistic styles, experimental designs
+                    and colourful expressions from emerging creators.
+                </p>
+            </article>
+
+            <article class="race-card">
+                <span class="card-status">COMMUNITY</span>
+
+                <h3>Artist Community</h3>
+
+                <p>
+                    Connect with artists, share creative ideas and
+                    celebrate the beauty of artistic expression.
+                </p>
+            </article>
+
+            <!-- EXHIBITION SCHEDULE -->
+            <h2 class="section-heading" id="schedule">
+                Art Exhibition Schedule
+            </h2>
+
+            <div class="schedule">
+
+                <div class="schedule-item">
+                    <strong>10:00 AM</strong>
+                    <h3>Gallery Opens</h3>
+                    <p>Visitors enter and explore the exhibition.</p>
+                </div>
+
+                <div class="schedule-item">
+                    <strong>11:00 AM</strong>
+                    <h3>Painting Exhibition</h3>
+                    <p>Explore paintings from different artists.</p>
+                </div>
+
+                <div class="schedule-item">
+                    <strong>01:00 PM</strong>
+                    <h3>Artist Interaction</h3>
+                    <p>Meet artists and learn about their work.</p>
+                </div>
+
+                <div class="schedule-item">
+                    <strong>03:00 PM</strong>
+                    <h3>Creative Workshop</h3>
+                    <p>Participate in an interactive art workshop.</p>
+                </div>
+
+                <div class="schedule-item">
+                    <strong>05:00 PM</strong>
+                    <h3>Closing Ceremony</h3>
+                    <p>Celebrate creativity and artistic talent.</p>
+                </div>
+
+            </div>
+
+        </section>
+                <!-- ARTIST REGISTRATION -->
+        <section class="form-section" id="application">
+
+            <h2>Join Our Art Community</h2>
+
+            <p>
+                Register to participate in exhibitions,
+                workshops and creative events.
+            </p>
+
+            <form id="artist-form">
+
+                <label for="artist-name">Full Name</label>
+                <input
+                    type="text"
+                    id="artist-name"
+                    placeholder="Enter your name"
+                    required>
+
+                <label for="artist-email">Email Address</label>
+                <input
+                    type="email"
+                    id="artist-email"
+                    placeholder="Enter your email"
+                    required>
+
+                <label for="artist-phone">Phone Number</label>
+                <input
+                    type="tel"
+                    id="artist-phone"
+                    placeholder="Enter your phone number"
+                    pattern="[0-9]{10}"
+                    required>
+
+                <label for="artist-category">Area of Interest</label>
+                <select id="artist-category" required>
+                    <option value="">Select a category</option>
+                    <option value="Painting">Painting</option>
+                    <option value="Photography">Photography</option>
+                    <option value="Sculpture">Sculpture</option>
+                    <option value="Digital Art">Digital Art</option>
+                    <option value="Sketching">Sketching</option>
+                </select>
+
+                <label for="artist-message">Why do you love art?</label>
+                <textarea
+                    id="artist-message"
+                    rows="4"
+                    placeholder="Tell us about your creativity">
+                </textarea>
+
+                <button type="submit">Submit Registration</button>
+
+                <p id="registration-message" aria-live="polite"></p>
+
+            </form>
+
+        </section>
+
+
+        <!-- ART SUPPLIES ORDER -->
+        <section
+            class="form-section supply-order-section"
+            id="art-supply-order">
+
+            <h2>Art Supplies Store</h2>
+
+            <p class="supply-order-intro">
+                Explore our collection of essential art supplies.
+                Select quantities to calculate your estimated total.
+            </p>
+
+            <div class="supply-products">
+
+                <div class="supply-option">
+                    <h3>Canvas Board</h3>
+                    <p>₹250 per unit</p>
+
+                    <label for="canvas-quantity">Quantity</label>
+                    <input
+                        type="number"
+                        id="canvas-quantity"
+                        min="0"
+                        max="20"
+                        value="0"
+                        data-price="250">
+                </div>
+
+                <div class="supply-option">
+                    <h3>Paint Brush Set</h3>
+                    <p>₹180 per unit</p>
+
+                    <label for="brush-quantity">Quantity</label>
+                    <input
+                        type="number"
+                        id="brush-quantity"
+                        min="0"
+                        max="20"
+                        value="0"
+                        data-price="180">
+                </div>
+
+                <div class="supply-option">
+                    <h3>Watercolour Set</h3>
+                    <p>₹320 per unit</p>
+
+                    <label for="paint-quantity">Quantity</label>
+                    <input
+                        type="number"
+                        id="paint-quantity"
+                        min="0"
+                        max="20"
+                        value="0"
+                        data-price="320">
+                </div>
+
+                <div class="supply-option">
+                    <h3>Sketchbook</h3>
+                    <p>₹150 per unit</p>
+
+                    <label for="book-quantity">Quantity</label>
+                    <input
+                        type="number"
+                        id="book-quantity"
+                        min="0"
+                        max="20"
+                        value="0"
+                        data-price="150">
+                </div>
+
+            </div>
+
+            <div class="supply-bill">
+                <strong>Estimated Total</strong>
+                <output id="supply-total">₹0</output>
+            </div>
+
+            <button type="button" id="place-supply-order">
+                Place Order
+            </button>
+
+            <p
+                class="supply-order-feedback"
+                id="supply-order-feedback"
+                aria-live="polite">
+            </p>
+
+        </section>
+
+
+        <!-- EXHIBITION DATA MANAGEMENT -->
+        <section
+            class="form-section endpoint-section"
+            id="endpoint-management">
+
+            <h2>Exhibition Data Management</h2>
+
+            <p class="endpoint-intro">
+                View and manage sample exhibition information.
+                This demonstration stores data in your browser.
+            </p>
+
+            <p class="endpoint-demo-note">
+                Note: This is a front-end demonstration.
+                It does not connect to a real server or database.
+            </p>
+
+            <div class="endpoint-toolbar">
+                <h3>Exhibition Records</h3>
+
+                <button
+                    type="button"
+                    id="refresh-exhibitions">
+                    Refresh Records
+                </button>
+            </div>
+
+            <div
+                class="endpoint-update-list"
+                id="exhibition-records">
+
+                <article class="endpoint-update-card">
+                    <h4>Modern Art Exhibition</h4>
+                    <p>Category: Modern Art</p>
+                    <p>Status: Upcoming</p>
+                </article>
+
+                <article class="endpoint-update-card">
+                    <h4>Photography Showcase</h4>
+                    <p>Category: Photography</p>
+                    <p>Status: Open</p>
+                </article>
+
+                <article class="endpoint-update-card">
+                    <h4>Traditional Painting Exhibition</h4>
+                    <p>Category: Painting</p>
+                    <p>Status: Completed</p>
+                </article>
+
+            </div>
+
+            <p
+                class="endpoint-status"
+                id="endpoint-status"
+                aria-live="polite">
+            </p>
+
+        </section>
+
+
+        <!-- TASK MANAGER -->
+        <section class="form-section" id="task-manager">
+
+            <h2>Creative Task Manager</h2>
+
+            <p>
+                Organise your artwork, workshop activities
+                and upcoming creative projects.
+            </p>
+
+            <form id="task-form">
+
+                <label for="task-name">Task Name</label>
+
+                <input
+                    type="text"
+                    id="task-name"
+                    placeholder="Enter a creative task"
+                    required>
+
+                <label for="task-date">Due Date</label>
+
+                <input
+                    type="date"
+                    id="task-date"
+                    required>
+
+                <button type="submit">Add Task</button>
+
+            </form>
+
+            <h3>Your Tasks</h3>
+
+            <ul id="task-list"></ul>
+
+            <p id="task-message" aria-live="polite"></p>
+
+        </section>
+
+
+        <!-- ART APPRECIATION QUIZ -->
+        <section class="form-section" id="interactive-quiz">
+
+            <h2>Art Appreciation Quiz</h2>
+
+            <p>
+                Test your knowledge of art and creativity!
+            </p>
+
+            <form id="quiz-form">
+
+                <fieldset>
+                    <legend>
+                        1. Which material is commonly used for painting?
+                    </legend>
+
+                    <label>
+                        <input type="radio" name="q1" value="a">
+                        Watercolour
+                    </label><br>
+
+                    <label>
+                        <input type="radio" name="q1" value="b">
+                        Cement
+                    </label><br>
+
+                    <label>
+                        <input type="radio" name="q1" value="c">
+                        Plastic pipe
+                    </label>
+                </fieldset>
+
+                <br>
+
+                <fieldset>
+                    <legend>
+                        2. Which of these is a primary colour?
+                    </legend>
+
+                    <label>
+                        <input type="radio" name="q2" value="a">
+                        Green
+                    </label><br>
+
+                    <label>
+                        <input type="radio" name="q2" value="b">
+                        Red
+                    </label><br>
+
+                    <label>
+                        <input type="radio" name="q2" value="c">
+                        Purple
+                    </label>
+                </fieldset>
+
+                <br>
+
+                <fieldset>
+                    <legend>
+                        3. What is sculpture?
+                    </legend>
+
+                    <label>
+                        <input type="radio" name="q3" value="a">
+                        A form of three-dimensional art
+                    </label><br>
+
+                    <label>
+                        <input type="radio" name="q3" value="b">
+                        A type of music
+                    </label><br>
+
+                    <label>
+                        <input type="radio" name="q3" value="c">
+                        A cooking method
+                    </label>
+                </fieldset>
+
+                <br>
+
+                <fieldset>
+                    <legend>
+                        4. Which tool is commonly used for sketching?
+                    </legend>
+
+                    <label>
+                        <input type="radio" name="q4" value="a">
+                        Pencil
+                    </label><br>
+
+                    <label>
+                        <input type="radio" name="q4" value="b">
+                        Spoon
+                    </label><br>
+
+                    <label>
+                        <input type="radio" name="q4" value="c">
+                        Hammer
+                    </label>
+                </fieldset>
+
+                <br>
+
+                <fieldset>
+                    <legend>
+                        5. What does abstract art mainly focus on?
+                    </legend>
+
+                    <label>
+                        <input type="radio" name="q5" value="a">
+                        Only realistic photographs
+                    </label><br>
+
+                    <label>
+                        <input type="radio" name="q5" value="b">
+                        Shapes, colours and forms
+                    </label><br>
+
+                    <label>
+                        <input type="radio" name="q5" value="c">
+                        Mathematical calculations
+                    </label>
+                </fieldset>
+
+                <br>
+
+                <button type="submit">
+                    Submit Quiz
+                </button>
+
+                <button type="reset">
+                    Reset Quiz
+                </button>
+
+            </form>
+
+            <div
+                id="quiz-result"
+                aria-live="polite">
+            </div>
+
+        </section>
+
+    </main>
+</div>
+<!-- FOOTER -->
+<footer style="
+    background:#29243b;
+    color:white;
+    text-align:center;
+    padding:25px 15px;
+    margin-top:35px;
+">
+    <h2>ART GALLERY</h2>
+    <p>Where creativity comes to life.</p>
+    <p>&copy; 2026 Art Gallery. All rights reserved.</p>
+</footer>
+
+
+<style>
+
+/* MEDIA LABELS */
+.media-tag {
+    display:inline-block;
+    background:#eee4f2;
+    color:#684477;
+    font-size:11px;
+    font-weight:bold;
+    padding:5px 9px;
+    border-radius:4px;
+    margin-bottom:8px;
+}
+
+/* FORM FIELDSET */
+fieldset {
+    border:1px solid #ddd;
+    border-radius:6px;
+    padding:12px;
+    background:#fbf7f1;
+}
+
+fieldset label {
+    display:inline-block;
+    margin:5px 0;
+    cursor:pointer;
+}
+
+fieldset input {
+    accent-color:#76518f;
+}
+
+/* TASK LIST */
+#task-list {
+    padding-left:22px;
+}
+
+#task-list li {
+    background:#fbf7f1;
+    margin:8px 0;
+    padding:10px;
+    border-left:4px solid #76518f;
+    border-radius:4px;
+}
+
+#task-list button {
+    margin-left:10px;
+    padding:5px 9px;
+    background:#76518f;
+}
+
+/* REGISTRATION MESSAGE */
+#registration-message {
+    color:#18723b;
+    font-weight:bold;
+}
+
+/* QUIZ RESULT */
+#quiz-result {
+    margin-top:15px;
+    padding:12px;
+    border-radius:5px;
+    font-weight:bold;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width:900px) {
+
+    .page-layout {
+        width:95%;
+        gap:12px;
+    }
+
+    .sidebar {
+        width:180px;
+    }
+
+    .gallery-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+}
+
+@media (max-width:650px) {
+
+    header {
+        position:static;
+    }
+
+    nav {
+        display:flex;
+        justify-content:center;
+        flex-wrap:wrap;
+        gap:12px;
+        margin-top:12px;
+    }
+
+    nav a,
+    .dropdown button {
+        margin:0;
+        font-size:14px;
+    }
+
+    .page-layout {
+        display:block;
+        width:94%;
+    }
+
+    .sidebar {
+        position:static;
+        width:100%;
+        margin-bottom:20px;
+    }
+
+    .hero {
+        height:250px;
+    }
+
+    .hero-content {
+        left:5%;
+        right:5%;
+        bottom:20px;
+    }
+
+    .box {
+        display:block;
+        width:100%;
+        margin:12px 0;
+    }
+
+    .gallery-grid {
+        grid-template-columns:1fr;
+    }
+
+    .form-section {
+        width:100%;
+    }
+
+    .supply-products {
+        grid-template-columns:1fr;
+    }
+
+    .feature-strip {
+        display:grid;
+        grid-template-columns:1fr 1fr;
+    }
+
+    .endpoint-toolbar {
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+}
+
+@media (prefers-reduced-motion:reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration:0.01ms !important;
+        animation-iteration-count:1 !important;
+        scroll-behavior:auto !important;
+        transition-duration:0.01ms !important;
+    }
+
+}
+
+</style>
+
+
+<script>
+
+/* ANNOUNCEMENT CONTROLS */
+
+const announcement = document.getElementById("announcement-track");
+
+document.getElementById("pause-btn").addEventListener("click",function() {
+    announcement.style.animationPlayState = "paused";
+});
+
+document.getElementById("play-btn").addEventListener("click",function() {
+    announcement.style.animationPlayState = "running";
+});
+
+document.getElementById("restart-btn").addEventListener("click",function() {
+    announcement.style.animation = "none";
+
+    void announcement.offsetWidth;
+
+    announcement.style.animation = "slideText 14s linear infinite";
+});
+
+
+/* IMAGE GALLERY LIGHTBOX */
+
+const galleryButtons = document.querySelectorAll(".gallery-open");
+
+const lightbox = document.getElementById("lightbox");
+
+const lightboxImage = document.getElementById("lightbox-image");
+
+const lightboxCaption = document.getElementById("lightbox-caption");
+
+const closeLightboxButton = document.getElementById("lightbox-close");
+
+let previousFocus = null;
+
+
+galleryButtons.forEach(function(button) {
+
+    button.addEventListener("click",function() {
+
+        previousFocus = document.activeElement;
+
+        const imageURL = button.dataset.full;
+
+        const caption = button.dataset.caption;
+
+        lightboxImage.src = imageURL;
+
+        lightboxImage.alt = caption;
+
+        lightboxCaption.textContent = caption;
+
+        lightbox.classList.add("open");
+
+        lightbox.setAttribute("aria-hidden","false");
+
+        closeLightboxButton.focus();
+
+    });
+
+});
+
+
+function closeLightbox() {
+
+    lightbox.classList.remove("open");
+
+    lightbox.setAttribute("aria-hidden","true");
+
+    lightboxImage.src = "";
+
+    if(previousFocus) {
+        previousFocus.focus();
+    }
+
+}
+
+
+closeLightboxButton.addEventListener("click",closeLightbox);
+
+
+lightbox.addEventListener("click",function(event) {
+
+    if(event.target === lightbox) {
+        closeLightbox();
+    }
+
+});
+
+
+document.addEventListener("keydown",function(event) {
+
+    if(event.key === "Escape" && lightbox.classList.contains("open")) {
+        closeLightbox();
+    }
+
+});
+
+
+/* ARTIST REGISTRATION */
+
+const artistForm = document.getElementById("artist-form");
+
+artistForm.addEventListener("submit",function(event) {
+
+    event.preventDefault();
+
+    const name = document.getElementById("artist-name").value.trim();
+
+    const email = document.getElementById("artist-email").value.trim();
+
+    const phone = document.getElementById("artist-phone").value.trim();
+
+    const category = document.getElementById("artist-category").value;
+
+    const message = document.getElementById("registration-message");
+
+
+    if(!name || !email || !phone || !category) {
+
+        message.textContent = "Please complete all required fields.";
+
+        return;
+
+    }
+
+
+    message.textContent =
+        "Thank you, " + name +
+        "! Your registration has been submitted successfully.";
+
+    artistForm.reset();
+
+});
+
+
+/* ART SUPPLIES PRICE CALCULATOR */
+
+const supplyInputs = document.querySelectorAll(
+    ".supply-option input"
+);
+
+const supplyTotal = document.getElementById("supply-total");
+
+const supplyFeedback = document.getElementById(
+    "supply-order-feedback"
+);
+
+
+function calculateSupplyTotal() {
+
+    let total = 0;
+
+    supplyInputs.forEach(function(input) {
+
+        const quantity = Number(input.value);
+
+        const price = Number(input.dataset.price);
+
+        if(
+            Number.isInteger(quantity) &&
+            quantity >= 0 &&
+            quantity <= 20
+        ) {
+
+            total += quantity * price;
+
+        }
+
+    });
+
+    supplyTotal.textContent = "₹" + total.toLocaleString("en-IN");
+
+    return total;
+
+}
+
+
+supplyInputs.forEach(function(input) {
+
+    input.addEventListener("input",function() {
+
+        const quantity = Number(input.value);
+
+        if(
+            input.value !== "" &&
+            (!Number.isInteger(quantity) || quantity < 0 || quantity > 20)
+        ) {
+
+            input.setCustomValidity(
+                "Enter a whole number between 0 and 20."
+            );
+
+        } else {
+
+            input.setCustomValidity("");
+
+        }
+
+        calculateSupplyTotal();
+
+    });
+
+});
+
+
+document.getElementById("place-supply-order")
+.addEventListener("click",function() {
+
+    let valid = true;
+
+    supplyInputs.forEach(function(input) {
+
+        const quantity = Number(input.value);
+
+        if(
+            input.value === "" ||
+            !Number.isInteger(quantity) ||
+            quantity < 0 ||
+            quantity > 20
+        ) {
+
+            valid = false;
+
+            input.reportValidity();
+
+        }
+
+    });
+
+
+    if(!valid) {
+
+        supplyFeedback.textContent =
+            "Please enter valid quantities for all products.";
+
+        supplyFeedback.classList.remove("success");
+
+        return;
+
+    }
+
+
+    const total = calculateSupplyTotal();
+
+    if(total === 0) {
+
+        supplyFeedback.textContent =
+            "Please select at least one art supply.";
+
+        supplyFeedback.classList.remove("success");
+
+        return;
+
+    }
+
+
+    supplyFeedback.textContent =
+        "Your sample order has been placed! Estimated total: ₹" +
+        total.toLocaleString("en-IN") +
+        ". This is a demonstration and no payment was made.";
+
+    supplyFeedback.classList.add("success");
+
+});
+
+
+/* EXHIBITION DATA MANAGEMENT */
+
+const exhibitionRecords = [
+    {
+        name:"Modern Art Exhibition",
+        category:"Modern Art",
+        status:"Upcoming"
+    },
+    {
+        name:"Photography Showcase",
+        category:"Photography",
+        status:"Open"
+    },
+    {
+        name:"Traditional Painting Exhibition",
+        category:"Painting",
+        status:"Completed"
+    }
+];
+
+
+const recordsContainer = document.getElementById(
+    "exhibition-records"
+);
+
+const endpointStatus = document.getElementById(
+    "endpoint-status"
+);
+
+
+function displayExhibitions() {
+
+    recordsContainer.innerHTML = "";
+
+    exhibitionRecords.forEach(function(record) {
+
+        const article = document.createElement("article");
+
+        article.className = "endpoint-update-card";
+
+        const heading = document.createElement("h4");
+
+        heading.textContent = record.name;
+
+        const category = document.createElement("p");
+
+        category.textContent = "Category: " + record.category;
+
+        const status = document.createElement("p");
+
+        status.textContent = "Status: " + record.status;
+
+        article.appendChild(heading);
+
+        article.appendChild(category);
+
+        article.appendChild(status);
+
+        recordsContainer.appendChild(article);
+
+    });
+
+}
+
+
+document.getElementById("refresh-exhibitions")
+.addEventListener("click",function() {
+
+    displayExhibitions();
+
+    endpointStatus.textContent =
+        "Exhibition records refreshed successfully.";
+
+    endpointStatus.classList.add("success");
+
+});
+
+
+/* TASK MANAGER */
+
+const taskForm = document.getElementById("task-form");
+
+const taskList = document.getElementById("task-list");
+
+const taskMessage = document.getElementById("task-message");
+
+
+function saveTasks() {
+
+    const tasks = [];
+
+    taskList.querySelectorAll("li").forEach(function(item) {
+
+        const taskText = item.querySelector(".task-text");
+
+        const taskDate = item.querySelector(".task-date");
+
+        if(taskText && taskDate) {
+
+            tasks.push({
+                name:taskText.textContent,
+                date:taskDate.textContent
+            });
+
+        }
+
+    });
+
+    localStorage.setItem("artGalleryTasks",JSON.stringify(tasks));
+
+}
+
+
+function addTask(name,date) {
+
+    const item = document.createElement("li");
+
+    const taskText = document.createElement("span");
+
+    taskText.className = "task-text";
+
+    taskText.textContent = name + " — ";
+
+    const taskDate = document.createElement("span");
+
+    taskDate.className = "task-date";
+
+    taskDate.textContent = date;
+
+    const deleteButton = document.createElement("button");
+
+    deleteButton.type = "button";
+
+    deleteButton.textContent = "Delete";
+
+    deleteButton.addEventListener("click",function() {
+
+        item.remove();
+
+        saveTasks();
+
+        taskMessage.textContent = "Task deleted.";
+
+    });
+
+
+    item.appendChild(taskText);
+
+    item.appendChild(taskDate);
+
+    item.appendChild(deleteButton);
+
+    taskList.appendChild(item);
+
+}
+
+
+function loadTasks() {
+
+    const savedTasks = localStorage.getItem("artGalleryTasks");
+
+    if(!savedTasks) {
+        return;
+    }
+
+    try {
+
+        const tasks = JSON.parse(savedTasks);
+
+        if(!Array.isArray(tasks)) {
+            return;
+        }
+
+        tasks.forEach(function(task) {
+
+            if(
+                task &&
+                typeof task.name === "string" &&
+                typeof task.date === "string"
+            ) {
+
+                addTask(task.name,task.date);
+
+            }
+
+        });
+
+    } catch(error) {
+
+        localStorage.removeItem("artGalleryTasks");
+
+    }
+
+}
+
+
+taskForm.addEventListener("submit",function(event) {
+
+    event.preventDefault();
+
+    const name = document.getElementById("task-name").value.trim();
+
+    const date = document.getElementById("task-date").value;
+
+
+    if(!name || !date) {
+
+        taskMessage.textContent = "Please enter a task and due date.";
+
+        return;
+
+    }
+
+
+    addTask(name,date);
+
+    saveTasks();
+
+    taskMessage.textContent = "Your task was added successfully.";
+
+    taskForm.reset();
+
+});
+
+
+loadTasks();
+
+
+/* ART APPRECIATION QUIZ */
+
+const quizForm = document.getElementById("quiz-form");
+
+const quizResult = document.getElementById("quiz-result");
+
+
+const correctAnswers = {
+
+    q1:"a",
+
+    q2:"b",
+
+    q3:"a",
+
+    q4:"a",
+
+    q5:"b"
+
+};
+
+
+quizForm.addEventListener("submit",function(event) {
+
+    event.preventDefault();
+
+    let score = 0;
+
+    let unanswered = 0;
+
+
+    Object.keys(correctAnswers).forEach(function(question) {
+
+        const selected = quizForm.querySelector(
+            'input[name="' + question + '"]:checked'
+        );
+
+
+        if(!selected) {
+
+            unanswered++;
+
+        } else if(selected.value === correctAnswers[question]) {
+
+            score++;
+
+        }
+
+    });
+
+
+    if(unanswered > 0) {
+
+        quizResult.textContent =
+            "Please answer all the questions before submitting.";
+
+        quizResult.style.background = "#fff0d6";
+
+        quizResult.style.color = "#76518f";
+
+        return;
+
+    }
+
+
+    quizResult.textContent =
+        "Your score: " + score + " out of 5. " +
+        (score === 5
+            ? "Excellent! You are an art expert!"
+            : score >= 3
+                ? "Great work! Keep exploring art."
+                : "Good attempt! Keep learning about art.");
+
+
+    quizResult.style.background = "#eee4f2";
+
+    quizResult.style.color = "#50345f";
+
+});
+
+
+/* INITIALISE EXHIBITION RECORDS */
+
+displayExhibitions();
+
+</script>
+
+</body>
+</html>
